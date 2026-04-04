@@ -48,6 +48,16 @@ void ABarrelActor::Explode()
 		Element->DestroyComponent();
 	}
 	LeakNiagaraComponents.Empty();
+	for (auto Element : LeakAudioComponents)
+	{
+		if (!IsValid(Element))	
+		{
+			continue;
+		}
+		Element->Stop();
+		Element->DestroyComponent();
+	}
+	LeakAudioComponents.Empty();
 	
 	UNiagaraFunctionLibrary::SpawnSystemAtLocation(this, ExplosionEffect, GetActorLocation(), GetActorRotation());
 	UGameplayStatics::PlaySoundAtLocation(this, ExplosionSound, GetActorLocation(), GetActorRotation());
@@ -65,13 +75,17 @@ void ABarrelActor::StartLeaking(struct FDamageEvent const& DamageEvent)
 		                                             FRotator::ZeroRotator, EAttachLocation::Type::KeepRelativeOffset,
 		                                             false);
 		LeakNiagaraComponents.Add(NiagaraComp);
-		auto AudioComp = UGameplayStatics::SpawnSoundAttached(LeakSound, NiagaraComp, NAME_None, FVector::ZeroVector,
-		                                     FRotator::ZeroRotator, EAttachLocation::KeepRelativeOffset, true, 1,1,0,nullptr,nullptr, true);
+
 	}
 	else
 	{
-		UE_LOG(LogTemp, Error, TEXT("Not implemented"));
+		auto NiagaraComp = UNiagaraFunctionLibrary::SpawnSystemAttached(LeakEffect, StaticMeshComp, NAME_None, FVector::ZeroVector,
+												 FRotator::ZeroRotator, EAttachLocation::Type::SnapToTarget,
+												 false);
+		LeakNiagaraComponents.Add(NiagaraComp);	
 	}
+	auto AudioComp = UGameplayStatics::SpawnSoundAttached(LeakSound, StaticMeshComp);
+	LeakAudioComponents.Add(AudioComp);
 }
 
 float ABarrelActor::TakeDamage(float DamageAmount, struct FDamageEvent const& DamageEvent,

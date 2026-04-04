@@ -11,6 +11,7 @@ class UNiagaraComponent;
 class UStaticMeshComponent;
 class UNiagaraSystem;
 class USoundBase;
+class UAudioComponent;
 
 UCLASS()
 class COURSE_API ABarrelActor : public AActor
@@ -42,6 +43,10 @@ public:
 protected:
 	UPROPERTY()
 	TArray<UNiagaraComponent*> LeakNiagaraComponents;
+	
+	UPROPERTY()
+	TArray<UAudioComponent*> LeakAudioComponents;
+	
 	FTimerHandle ExplosionTimerHandle;
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
