@@ -11,6 +11,9 @@ UCLASS(ClassGroup=(Custom), meta=(BlueprintSpawnableComponent))
 class COURSE_API URogueInteractionComponent : public UActorComponent
 {
 	GENERATED_BODY()
+	
+	UPROPERTY(EditDefaultsOnly, Category="Interaction")
+	float InteractionRadius = 800;
 
 public:
 	// Sets default values for this component's properties
