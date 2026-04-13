@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "NiagaraSystem.h"
 #include "GameFramework/Character.h"
-#include "RogueCharacter.generated.h"
+#include "RoguePlayerCharacter.generated.h"
 
 class ARogueProjectileMagic;
 struct FInputActionInstance;
@@ -16,13 +16,13 @@ class UCameraComponent;
 class UAnimMontage;
 
 UCLASS()
-class COURSE_API ARogueCharacter : public ACharacter
+class COURSE_API ARoguePlayerCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
 public:
 	// Sets default values for this character's properties
-	ARogueCharacter();
+	ARoguePlayerCharacter();
 
 protected:
 	UPROPERTY(EditDefaultsOnly, Category="Input")
