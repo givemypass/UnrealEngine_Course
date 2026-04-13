@@ -3,6 +3,7 @@
 
 #include "RogueInteractionComponent.h"
 
+#include "Core/RogueInteractionInterface.h"
 #include "Engine/OverlapResult.h"
 
 
@@ -34,7 +35,6 @@ void URogueInteractionComponent::TickComponent(float DeltaTime, ELevelTick TickT
 	
 	DrawDebugSphere(GetWorld(), Center, InteractionRadius, 32, FColor::White);
 	
-	AActor* BestActor = nullptr;
 	float BestDotProduct = -0.1;
 	
 	for (auto Overlap : Overlaps)
@@ -47,12 +47,21 @@ void URogueInteractionComponent::TickComponent(float DeltaTime, ELevelTick TickT
 		if (DotProduct > BestDotProduct)
 		{
 			BestDotProduct = DotProduct;
-			BestActor = Overlap.GetActor();
+			SelectedActor = Overlap.GetActor();
 		}
 	}
-	if (BestActor != nullptr)
+	if (SelectedActor != nullptr)
 	{
-		DrawDebugBox(GetWorld(), BestActor->GetActorLocation(), FVector(60.f), FColor::Green);
+		DrawDebugBox(GetWorld(), SelectedActor->GetActorLocation(), FVector(60.f), FColor::Green);
+	}
+}
+
+void URogueInteractionComponent::Interact()
+{
+	IRogueInteractionInterface* InteractionInterface = Cast<IRogueInteractionInterface>(SelectedActor);
+	if (InteractionInterface != nullptr)
+	{
+		InteractionInterface->Interact();
 	}
 }
 

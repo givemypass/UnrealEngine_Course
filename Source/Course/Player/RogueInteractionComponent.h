@@ -12,13 +12,16 @@ class COURSE_API URogueInteractionComponent : public UActorComponent
 {
 	GENERATED_BODY()
 	
+protected:
 	UPROPERTY(EditDefaultsOnly, Category="Interaction")
 	float InteractionRadius = 800;
-
+	UPROPERTY()
+	TObjectPtr<AActor> SelectedActor;
 public:
 	// Sets default values for this component's properties
 	URogueInteractionComponent();
 	
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType,
 	                           FActorComponentTickFunction* ThisTickFunction) override;
+	void Interact();
 };

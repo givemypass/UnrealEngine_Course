@@ -3,11 +3,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Core/RogueInteractionInterface.h"
 #include "GameFramework/Actor.h"
 #include "RogueItemChest.generated.h"
 
 UCLASS()
-class COURSE_API ARogueItemChest : public AActor
+class COURSE_API ARogueItemChest : public AActor, public IRogueInteractionInterface
 {
 	GENERATED_BODY()
 
@@ -35,4 +36,5 @@ protected:
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+	virtual void Interact() override;
 };

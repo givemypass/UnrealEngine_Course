@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "InputAction.h"
 #include "GameFramework/PlayerController.h"
 #include "RoguePlayerController.generated.h"
 
@@ -19,6 +20,11 @@ protected:
 	UPROPERTY(EditDefaultsOnly, Category="Components")
 	TObjectPtr<URogueInteractionComponent> InteractionComponent;
 	
+	UPROPERTY(EditDefaultsOnly, Category="Input")
+	TObjectPtr<UInputAction> Input_Interact;
+
 public:
 	ARoguePlayerController();
+	void OnInteract();
+	virtual void SetupInputComponent() override;
 };

@@ -22,7 +22,6 @@ ARogueItemChest::ARogueItemChest()
 void ARogueItemChest::BeginPlay()
 {
 	Super::BeginPlay();
-	SetActorTickEnabled(true);
 }
 
 // Called every frame
@@ -37,5 +36,10 @@ void ARogueItemChest::Tick(float DeltaTime)
 	{
 		SetActorTickEnabled(false);
 	}
+}
+
+void ARogueItemChest::Interact()
+{
+	SetActorTickEnabled(true);
 }
 
