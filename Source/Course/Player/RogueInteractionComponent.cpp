@@ -3,6 +3,7 @@
 
 #include "RogueInteractionComponent.h"
 
+#include "RogueGameTypes.h"
 #include "Core/RogueInteractionInterface.h"
 #include "Engine/OverlapResult.h"
 
@@ -30,8 +31,9 @@ void URogueInteractionComponent::TickComponent(float DeltaTime, ELevelTick TickT
 	TArray<FOverlapResult> Overlaps;
 	FCollisionShape SphereShape;
 	SphereShape.SetSphere(InteractionRadius);
-	
-	GetWorld()->OverlapMultiByChannel(Overlaps, Center, FQuat::Identity, ECC_Visibility, SphereShape);
+
+	ECollisionChannel TraceChannel = COLLISION_INTERACTION;
+	GetWorld()->OverlapMultiByChannel(Overlaps, Center, FQuat::Identity, TraceChannel, SphereShape);
 	
 	DrawDebugSphere(GetWorld(), Center, InteractionRadius, 32, FColor::White);
 	
